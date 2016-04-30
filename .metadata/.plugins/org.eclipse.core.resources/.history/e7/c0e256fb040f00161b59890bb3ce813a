@@ -1,0 +1,14 @@
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
+public class SaveFile {
+	public static void save(){
+		 try {
+		        ObjectOutputStream toFile = new ObjectOutputStream(new FileOutputStream("C:/Users/Matthew/Desktop/test.txt"));
+		        toFile.writeObject(Data.grid);
+		        toFile.close();
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+	}
+}

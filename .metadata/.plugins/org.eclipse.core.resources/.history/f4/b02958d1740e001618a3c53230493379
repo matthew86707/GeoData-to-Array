@@ -1,0 +1,10 @@
+
+public class CSVReader {
+	
+	public static void startReading(){
+		CSVSettings.COL_LAT = Integer.parseInt(MainWindow.latIn.getText());
+		CSVSettings.COL_LON = Integer.parseInt(MainWindow.latIn.getText());
+		
+	}
+
+}

@@ -1,0 +1,30 @@
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Graphic extends JPanel{
+	
+	public Graphic(){
+		JFrame frame = new JFrame();
+		frame.setSize(Data.grid.length, Data.grid.length);
+		frame.setVisible(true);
+		frame.setTitle("Preview");
+		frame.setLocationRelativeTo(null);
+		frame.add(this);
+	}
+	
+	 @Override
+	    protected void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+	        for(int x = 0; x < Data.grid.length; x++){
+	        	for(int y = 0; y < Data.grid.length; y++){
+	        		 g.setColor(Color.RED);
+		        	
+		        }
+	        }
+
+	    }
+
+}

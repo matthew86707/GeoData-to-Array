@@ -1,0 +1,142 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+public class MainWindow extends JFrame implements ActionListener{
+	
+	JPanel pan;
+	
+	JList csvList;
+	JButton add;
+	JButton start;
+	JButton save;
+	JButton pre;
+	JLabel lat;
+	JLabel lon;
+	static JTextField latIn;
+	static JTextField lonIn;
+	
+	DefaultListModel list = new DefaultListModel<>();
+	
+	public MainWindow(){
+		
+		Data.randomData();
+		
+		pan = new JPanel();
+		pan.setLayout(null);
+		
+		this.setSize(800, 600);
+		this.setVisible(true);
+		this.setTitle("CSV -> GeoData");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		csvList = new JList();
+		csvList.setModel(list);
+		csvList.setBounds(10, 10, 300, 450);
+		pan.add(csvList);
+		
+		add = new JButton("Add");
+		add.setBounds(10, 470, 140, 70);
+		add.addActionListener(this);
+		pan.add(add);
+		
+		start = new JButton("Start!");
+		start.setBounds(170, 470, 140, 70);
+		start.addActionListener(this);
+		pan.add(start);
+		
+		save = new JButton("Save");
+		save.setBounds(370, 470, 140, 70);
+		save.addActionListener(this);
+		pan.add(save);
+		
+		pre = new JButton("Preview");
+		pre.setBounds(570, 470, 140, 70);
+		pre.addActionListener(this);
+		pan.add(pre);
+		
+		lat = new JLabel("Lat Column:");
+		lat.setBounds(410, -10, 140, 70);
+		pan.add(lat);
+		
+		lon = new JLabel("Lon Column:");
+		lon.setBounds(560, -10, 140, 70);
+		pan.add(lon);
+		
+		latIn = new JTextField();
+		latIn.setBounds(480, 18, 20, 20);
+		pan.add(latIn);
+		
+		lonIn = new JTextField();
+		lonIn.setBounds(631, 18, 20, 20);
+		pan.add(lonIn);
+		
+		this.add(pan);
+		
+		//Makes sure they show up
+		this.pack();
+		this.setSize(800, 600);
+		
+		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == add){
+			selectCSV();
+		}
+		if(e.getSource() == start){
+			CSVReader.startReading();
+		}
+		
+		if(e.getSource() == save){
+			SaveFile.save();
+		}
+		if(e.getSource() == pre){
+			Graphic g = new Graphic();
+		}
+		
+	}
+	
+	public void selectCSV(){
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		int result = fileChooser.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		    CSVSettings.FILE = selectedFile.getAbsolutePath();
+		    list.addElement(selectedFile.getName());
+		}
+	}
+
+}

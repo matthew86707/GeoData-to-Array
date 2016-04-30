@@ -1,0 +1,15 @@
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Graphic extends JPanel{
+	
+	public Graphic(){
+		JFrame frame = new JFrame();
+		frame.setSize(800, 600);
+		frame.setVisible(true);
+		frame.setTitle("Preview");
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+}

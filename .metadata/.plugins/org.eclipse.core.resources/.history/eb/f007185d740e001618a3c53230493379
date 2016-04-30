@@ -1,0 +1,102 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class MainWindow extends JFrame implements ActionListener{
+	
+	JPanel pan;
+	
+	JList csvList;
+	JButton add;
+	JButton start;
+	JLabel lat;
+	JLabel lon;
+	JTextField latIn;
+	JTextField lonIn;
+	
+	DefaultListModel list = new DefaultListModel<>();
+	
+	public MainWindow(){
+		
+		pan = new JPanel();
+		pan.setLayout(null);
+		
+		this.setSize(800, 600);
+		this.setVisible(true);
+		this.setTitle("CSV -> GeoData");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		csvList = new JList();
+		csvList.setModel(list);
+		csvList.setBounds(10, 10, 300, 450);
+		pan.add(csvList);
+		
+		add = new JButton("Add");
+		add.setBounds(10, 470, 140, 70);
+		add.addActionListener(this);
+		pan.add(add);
+		
+		start = new JButton("Start!");
+		start.setBounds(170, 470, 140, 70);
+		start.addActionListener(this);
+		pan.add(start);
+		
+		lat = new JLabel("Lat Column:");
+		lat.setBounds(410, -10, 140, 70);
+		pan.add(lat);
+		
+		lon = new JLabel("Lon Column:");
+		lon.setBounds(560, -10, 140, 70);
+		pan.add(lon);
+		
+		latIn = new JTextField();
+		latIn.setBounds(480, 20, 140, 20);
+		pan.add(latIn);
+		
+		lonIn = new JTextField();
+		lonIn.setBounds(630, 20, 140, 20);
+		pan.add(lonIn);
+		
+		this.add(pan);
+		
+		//Makes sure they show up
+		this.pack();
+		this.setSize(800, 600);
+		
+		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == add){
+			selectCSV();
+		}
+		if(e.getSource() == start){
+			CSVReader.startReading();
+		}
+		
+	}
+	
+	public void selectCSV(){
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		int result = fileChooser.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		    list.addElement(selectedFile.getName());
+		}
+	}
+
+}

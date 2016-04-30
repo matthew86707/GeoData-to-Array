@@ -1,0 +1,78 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+
+public class MainWindow extends JFrame implements ActionListener{
+	
+	JPanel pan;
+	
+	JList csvList;
+	JButton add;
+	JButton start;
+	
+	DefaultListModel list = new DefaultListModel<>();
+	
+	public MainWindow(){
+		
+		pan = new JPanel();
+		pan.setLayout(null);
+		
+		this.setSize(800, 600);
+		this.setVisible(true);
+		this.setTitle("CSV -> GeoData");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		csvList = new JList();
+		csvList.setModel(list);
+		csvList.setBounds(10, 10, 300, 450);
+		pan.add(csvList);
+		
+		add = new JButton("Add");
+		add.setBounds(10, 470, 140, 70);
+		add.addActionListener(this);
+		pan.add(add);
+		
+		start = new JButton("Start!");
+		start.setBounds(160, 470, 140, 70);
+		start.addActionListener(this);
+		pan.add(start);
+		
+		this.add(pan);
+		
+		//Makes sure they show up
+		this.pack();
+		this.setSize(800, 600);
+		
+		
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == add){
+			selectCSV();
+		}
+		
+	}
+	
+	public void selectCSV(){
+		Data.printData();
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		int result = fileChooser.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = fileChooser.getSelectedFile();
+		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+		    list.addElement(selectedFile.getName());
+		}
+	}
+
+}

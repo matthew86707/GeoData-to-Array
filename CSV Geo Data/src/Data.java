@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Data {
+	
+	static int[][] grid = new int[900][900];
+	 
+	public static void printData(){
+		for(int i = 0; i < grid.length; i++){
+			System.out.println("-");
+			for(int j = 0; j < grid.length; j++){
+				System.out.print(grid[i][j] + ":");
+			}
+		}
+	}
+	
+	public static void randomData(){
+		for(int i = 0; i < grid.length; i++){
+			for(int j = 0; j < grid.length; j++){
+				if(Math.random() > 0.2f){
+					Data.grid[i][j] = 1;
+				}
+			}
+		}
+	
+	}
+
+}

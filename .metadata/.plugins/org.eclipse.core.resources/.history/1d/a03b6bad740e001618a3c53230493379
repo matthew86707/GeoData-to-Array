@@ -1,0 +1,7 @@
+
+public class CSVSettings {
+	
+	public int COL_LON;
+	public int COL_LAT;
+
+}

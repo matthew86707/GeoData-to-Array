@@ -1,0 +1,25 @@
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+
+public class MainWindow extends JFrame{
+	
+	JPanel listPanel;
+	JPanel infoPanel;
+	
+	JList csvList;
+	
+	public MainWindow(){
+		this.setSize(800, 600);
+		this.setVisible(true);
+		this.setTitle("CSV -> GeoData");
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		csvList = new JList();
+		csvList.setBounds(10, 10, 300, 580);
+		this.add(csvList);
+		
+	}
+
+}
